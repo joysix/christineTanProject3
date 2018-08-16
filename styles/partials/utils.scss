@@ -1,4 +1,19 @@
 $display: 'Gaegu', cursive;
 $monospace: 'Roboto Mono', monospace;
 
-$bgcolor: dodgerblue;
+$bgcolor: #ebebd3;
+$opaque: #ebebd3CC;
+$light: #fdfffc;
+$dark: #011627;
+
+$p1color: dodgerblue;
+$p2color: darkorange;
+
+$accent1: #f4d35e;
+$accent2: #f95738;
+
+@mixin box-fill ($display-type) {
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
+    display: $display-type;
+}

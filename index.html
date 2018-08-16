@@ -10,28 +10,39 @@
     <title>RPS SHOOT</title>
 </head>
 <body>
-    <header><h1>Rock, Paper, Scissors</h1></header>
-        <div class="test"></div>
-        
-        <!-- <img class="hands svg" src="assets/noun_hands_147857.svg" alt="Hands by Josie Schultz from the Noun Project">-->
-        <div class="p1 stats p1-stats">
-            Player 1
+    
+    <main>
+        <div class="overlay">
+            <form method="GET">
+                <label for="p1-name">Player 1</label>
+                <input type="text" name="p1-name" id="p1-name" placeholder="name">
+                <label for="p2-name">Player 2</label>
+                <input type="text" name="p2-name" id="p2-name" placeholder="name">
+                <label for="rounds">Number of rounds</label>
+                <select id="rounds">
+                    <option value="3">3</option>
+                    <option value="5">5</option>
+                    <option value="7">7</option>
+                    <option value="9">9</option>
+                    <option value="11">11</option>
+                </select>
+                <button>Play</button>
+            </form>
         </div>
-        <div class="p2 stats p2-stats">
-            Player 2
+        <div class="p1">
+            <figure class="p1-hand"></figure>
+            <p class="details p1-details"><span class="name p1-name">Player 1</span><span class="score p1-score">0</span></p>
         </div>
-        <div class="p1 hand p1-hand">
-            <img class="rock left svg hide" src="assets/noun_Hand_147847.svg" alt="Hand by Josie Schultz from the Noun Project">
-            <img class="paper left svg hide" src="assets/noun_Hand_147844.svg" alt="Hand by Josie Schultz from the Noun Project">
-            <img class="scissors left svg" src="assets/noun_Peace_147845.svg" alt="Peace by Josie Schultz from the Noun Project">
+        <div class="p2">
+            <figure class="p2-hand"></figure>
+            <p class="details p2-details"><span class="name p2-name">Player 2</span><span class="score p2-score">0</span></p>
         </div>
-        <div class="p2 hand p2-hand">
-            <img class="rock right svg hide" src="assets/noun_Hand_147847.svg" alt="Hand by Josie Schultz from the Noun Project">
-            <img class="paper right svg" src="assets/noun_Hand_147844.svg" alt="Hand by Josie Schultz from the Noun Project">
-            <img class="scissors right svg hide" src="assets/noun_Peace_147845.svg" alt="Peace by Josie Schultz from the Noun Project">
-        </div>
+    </main>
 
-    <footer><h6>SVGs by Josie Schultz from the Noun Project</h6></footer>
+    <footer>
+        <h2>Rock, Paper, Scissors</h2>
+        <h6>SVGs by Josie Schultz from the Noun Project</h6>
+    </footer>
     
     <script src='https://code.jquery.com/jquery-3.2.1.min.js' integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4='crossorigin='anonymous'></script>
     <script type="text/javascript" src="./script.js"></script>

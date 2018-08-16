@@ -1,0 +1,13 @@
+footer {
+    grid-column: 1 / -1;
+    grid-row: span 1 / -1;
+    padding: 10px;
+    display: grid;
+    h2 {
+        justify-self: start;
+    }
+    h6 {
+        justify-self: end;
+    }
+}
+

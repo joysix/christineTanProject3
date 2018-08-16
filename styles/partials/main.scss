@@ -1,95 +1,109 @@
+// * { border: 0.25px dotted red; }
+
 body {
     margin: 0;
     padding: 0;
     width: 100vw;
     height: 100vh;
     display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    grid-template-rows: repeat(12, 1fr);
-    background-color: dodgerblue;
-    background-image: linear-gradient(-76deg, darkorange 50%, dodgerblue 50%);
+    grid-template-rows: 1fr auto;
+    background-color: $bgcolor;
     overflow: hidden;
 }
 
-// .test {
-//     grid-column: 1 / -1;
-//     grid-row: 7 / -1;
-//     background-color: darkorange;
-//     z-index: -100;
-// }
 .hide {
     display: none;
 }
 
-.stats {
+div {
+    padding: 20px;
+}
+
+.overlay {
+    @include box-fill(grid);
+    justify-content: center;
+    align-content: center;
+    background-color: $opaque;
+    z-index: 99;
+}
+
+main {
+    grid-column: 1 / -1;
     grid-row: 1 / -2;
-    padding: 10px;
     display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 1 / span 1;
+    background-image: linear-gradient(-75deg, $p2color 50%, $p1color 50%);
 }
 
-.p1.stats {
+form {
+    display: flex;
+    flex-flow: column;
+    flex: 0 0 content;
+    & > * {
+        border: none;
+        // outline: none;
+    }
+    input {
+        background-color: #fff;
+    }
+    label, button {
+        margin-top: 20px;
+    }
+    button:hover {
+        background-color: $p2color;
+    }
+    
+}
+
+.p1 {
     grid-column: 1 / 7;
-    align-content: end;
-}
-.p2.stats {
-    grid-column: 7 / -1;
-    justify-content: end;
-    align-content: start;
-}
-
-.hand {
-    position: relative;
+    grid-row: 1 / -1; 
     display: grid;
-    // border: 1px solid white;    
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    &-hand {
+        @include box-fill(grid);
+        align-items: end;
+    }
+    .details {
+        flex-flow: column-reverse wrap;
+    }
 }
 
-.p1-hand {
-       grid-column: 1 / 10;
-       grid-row: 2 / -2;
-       justify-items: start;
+.p2 {
+    grid-column: 7 / -1;
+    grid-row: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr;
+    &-hand {
+        @include box-fill(grid);
+        justify-items: end;
+        align-items: end;
+        .svg {
+            transform: scaleX(-1);
+        }
+    }
+    .details {
+        flex-flow: column wrap;
+        text-align: right;
+    }
 }
 
-.p2-hand {
-       grid-column: 4 / -1;
-       grid-row: 4 / -2;
-       justify-items: end;
+.details {
+    @include box-fill(flex);
 }
-// img {
-//     grid-column: 1 / -1;
-//     grid-row: 1 / -1;
-//     display: block;
-// }
+
+
+// HANDS SVGS
 
 .svg {
-    width: 60%;
+    width: 80%;
     position: relative;
     bottom: 20%;
     filter: invert(1);
-}
-.paper {
-    width: 58%;
-}
-.left{
-    right: 5%;
-    &.rock, {
-        transform: scaleX(-1) rotate(-60deg);
-    }
-    &.paper {
-        transform: rotate(140deg);
-    }
-    &.scissors {
-        transform: rotate(145deg);
-    }
-}
-.right {
-    left: 5%;
-    &.rock {
-        transform: scale(-1) rotate(120deg);
-    }
-    &.paper {
-        transform: scaleX(-1) rotate(140deg);
-    }
-    &.scissors {
-        transform: scaleX(-1) rotate(145deg);
+    .paper {
+        width: 58%;
     }
 }

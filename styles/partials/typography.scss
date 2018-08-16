@@ -6,11 +6,11 @@ body {
     font-size: 1.6rem;
     color: white;
 }
-h1, h6 {
+h2, h6 {
     margin: 0;
     display: inline;
 }
-h1 {
+h2 {
     font-family: $display;
     font-size: 8rem;
     font-weight: 700;
@@ -32,6 +32,21 @@ h6 {
 p {
     margin: 0;
 }
-.svg {
-    filter: invert(1);
-}   
+span {
+    display: block;
+}
+.name {
+    font-family: $display;
+}
+.name, .score {
+    font-size: 6rem;
+}
+form {
+    font-size: 2.4rem;
+    button {
+        text-transform: uppercase;
+    }
+}
+.overlay, footer {
+    color: #333;
+}
