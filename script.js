@@ -9,6 +9,7 @@
     // Listen for keydown
     // save choice in two variables
 // Ensure both players played hands
+        //// Print choices to page
 // Compare hands, declare winner of round, add to score
 // Check score to see if there's a winner
     // If no winner, repeat from step 2 
@@ -29,6 +30,13 @@ const game = {
 
 const p1 = game.p1;
 const p2 = game.p2;
+
+
+const rock = `<img class="rock svg" src="assets/noun_Hand_147847.svg" alt="Hand by Josie Schultz from the Noun Project"></img>`
+
+const paper = `<img class="paper svg" src="assets/noun_Hand_147844.svg" alt="Hand by Josie Schultz from the Noun Project">`
+
+const scissors = `<img class="scissors svg" src="assets/noun_Peace_147845.svg" alt="Peace by Josie Schultz from the Noun Project">`
 
 const app = {}
 
@@ -63,8 +71,15 @@ app.check = () => {
         p2.score++
         app.reset();
     }
-}
+};
 
+// app.printHand = () => {
+//     if(p1.hand === 'rock'){
+//         $('.p1-hand').append(rock);
+//     }
+    
+//     app.check();
+// };
 
 app.keysOff = () => {
     if(p1.hand !== null && p2.hand !== null){

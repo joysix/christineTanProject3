@@ -1,0 +1,95 @@
+body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 1fr);
+    background-color: dodgerblue;
+    background-image: linear-gradient(-76deg, darkorange 50%, dodgerblue 50%);
+    overflow: hidden;
+}
+
+// .test {
+//     grid-column: 1 / -1;
+//     grid-row: 7 / -1;
+//     background-color: darkorange;
+//     z-index: -100;
+// }
+.hide {
+    display: none;
+}
+
+.stats {
+    grid-row: 1 / -2;
+    padding: 10px;
+    display: grid;
+}
+
+.p1.stats {
+    grid-column: 1 / 7;
+    align-content: end;
+}
+.p2.stats {
+    grid-column: 7 / -1;
+    justify-content: end;
+    align-content: start;
+}
+
+.hand {
+    position: relative;
+    display: grid;
+    // border: 1px solid white;    
+}
+
+.p1-hand {
+       grid-column: 1 / 10;
+       grid-row: 2 / -2;
+       justify-items: start;
+}
+
+.p2-hand {
+       grid-column: 4 / -1;
+       grid-row: 4 / -2;
+       justify-items: end;
+}
+// img {
+//     grid-column: 1 / -1;
+//     grid-row: 1 / -1;
+//     display: block;
+// }
+
+.svg {
+    width: 60%;
+    position: relative;
+    bottom: 20%;
+    filter: invert(1);
+}
+.paper {
+    width: 58%;
+}
+.left{
+    right: 5%;
+    &.rock, {
+        transform: scaleX(-1) rotate(-60deg);
+    }
+    &.paper {
+        transform: rotate(140deg);
+    }
+    &.scissors {
+        transform: rotate(145deg);
+    }
+}
+.right {
+    left: 5%;
+    &.rock {
+        transform: scale(-1) rotate(120deg);
+    }
+    &.paper {
+        transform: scaleX(-1) rotate(140deg);
+    }
+    &.scissors {
+        transform: scaleX(-1) rotate(145deg);
+    }
+}
