@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/css?family=Gaegu:400,700|Roboto+Mono:400,400i,500,500i" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <link rel="stylesheet" href="./styles/styles.css">
 
     <title>RPS SHOOT</title>
@@ -12,7 +13,7 @@
 <body>
     
     <main>
-        <div class="overlay">
+        <div class="overlay setup">
             <form method="GET">
                 <label for="p1-name">Player 1</label>
                 <input type="text" name="p1-name" id="p1-name" placeholder="name">
@@ -29,17 +30,43 @@
                 <button>Play</button>
             </form>
         </div>
+
+        <div class="overlay keys">
+            <div class="keyset keyset-p1">
+                <span class="name p1-name">Player 1</span>
+                <div class="pairs">
+                    <div class="pair"><p>Rock <span class="key">Z</span></p></div>
+                    <div class="pair"><p>Paper <span class="key">X</span></p></div>
+                    <div class="pair"><p>Scissors <span class="key">C</span></p></div>
+                </div>
+            </div>
+
+            <div class="keyset keyset-p2">
+                    <span class="name p2-name">Player 2</span>
+                    <div class="pairs">
+                        <div class="pair"><p>Rock <span class="key">I</span></p></div>
+                        <div class="pair"><p>Paper <span class="key">O</span></p></div>
+                        <div class="pair"><p>Scissors <span class="key">P</span></p></div>
+                    </div>
+                </p>
+            </div>
+
+            <button class="close">Close</button>
+        </div>
+
+
         <div class="p1">
             <figure class="p1-hand"></figure>
-            <p class="details p1-details"><span class="name p1-name">Player 1</span><span class="score p1-score">0</span></p>
+            <p class="details p1-details"><span class="name p1-name"></span><span class="score p1-score"></span></p>
         </div>
         <div class="p2">
             <figure class="p2-hand"></figure>
-            <p class="details p2-details"><span class="name p2-name">Player 2</span><span class="score p2-score">0</span></p>
+            <p class="details p2-details"><span class="name p2-name"></span><span class="score p2-score"></span></p>
         </div>
     </main>
 
     <footer>
+        <button class="tuck"><img class="arrow down" src="assets/arrow.svg"></button>
         <h2>Rock, Paper, Scissors</h2>
         <h6>SVGs by Josie Schultz from the Noun Project</h6>
     </footer>
