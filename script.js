@@ -1,7 +1,3 @@
-// ROCK     // PAPER   // SCISSORS
-// Z 90     // X 88    // C 67
-// I 73     // O 79    // P 80
-
 const game = {
     rounds: {
         bestOf: null,
@@ -281,7 +277,10 @@ app.hideFooter = () => {
     });
 };
 
-//////////// START OF MOBILE ////////////
+
+/////////////////////
+// START OF MOBILE //
+/////////////////////
 
 let grade = 50;
 
@@ -365,12 +364,34 @@ app.keyless = () => {
     }
 }
 
-/////////// END OF MOBILE ////////////
+///////////////////
+// END OF MOBILE //
+///////////////////
 
 
 $(function(){
     app.setup();
     app.hideFooter();
 
+    // calls alternative game on mobile
     app.keyless();
 });
+
+
+// ROCK     // PAPER   // SCISSORS
+// Z 90     // X 88    // C 67
+// I 73     // O 79    // P 80
+
+/////////
+// NTS //
+/////////
+
+////// Future considerations
+// Develop mobile game alternative to RPS (w/o use of keyboard)
+//// 2-player RPS on desktop is silly, 2-player RPS on mobile is even sillier
+// Proper landing/welcome page (use multi-hand svg)
+// Increased keyboard and click functionality (re Enter key!)
+// Series option
+// Computer opponent option
+// Key control customization
+// Colour customization
