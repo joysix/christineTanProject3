@@ -23,6 +23,10 @@ h2 {
     @media(max-width: 950px) {
         font-size: 4rem;
     }
+    @media (max-width: 585px) {
+        font-size: 3rem;
+        letter-spacing: 0;
+    }
 }
 h3 {
     font-family: $display;
@@ -38,6 +42,7 @@ h6 {
     font-weight: 500;
     letter-spacing: 0.1rem;
     text-transform: uppercase;
+    text-align: right;
 }
 p {
     margin: 0;
@@ -77,12 +82,12 @@ footer {
 }
 
 @media (max-width: 585px) {
-    .name {
-        font-size: 5rem;
+    .name, .score {
+        font-size: 3.6rem;
     }
     .keyset {
         .name {
-            font-size: 4rem;
+            font-size: 3.6rem;
         }
     }
     h2 {

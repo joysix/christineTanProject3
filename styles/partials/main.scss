@@ -11,14 +11,11 @@ body {
     overflow: hidden;
 }
 
-div {
-    padding: 15px 30px;
-}
-
 button {
     border: none;
     outline: none;
 }
+
 
 .overlay {
     margin: 20px;
@@ -67,13 +64,22 @@ form {
     border-radius: 20px;
     z-index: 89;
     &-game {
-        margin: 20px;
         justify-self: stretch;
         border-radius: 0px;
+        button {
+            padding: 0px 20px;
+            &.same-players:hover {
+                background-color: dodgerblue;
+            }
+            &.new-players:hover {
+                background-color: darkorange;
+            }
+        }
     }
 }
 
 .keys {
+    // * { border: 0.25px dotted red; }
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
@@ -93,10 +99,20 @@ form {
             text-align: center;
         }
         & .pairs {
-        width: available;
-        display: flex;
-        flex-flow: row wrap;
-        justify-content: center;
+            width: available;
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+            @media (max-width: 450px) {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+            }
+            * { 
+                padding: 15px 30px;
+                @media (max-width: 450px) {
+                    padding: 0;
+                }
+            }
         }
         .pair {
             display: grid;
@@ -107,11 +123,12 @@ form {
                 margin: auto;
                 width: max-content;
                 padding: 10px 20px;
-                @media (max-width: 450px) {
-                    padding: 5px 12px;
-                }
                 border: 2px solid #333;
                 border-radius: 8px;
+                @media (max-width: 450px) {
+                    padding: 1px 8px;
+                    border: 0.5px solid #333;
+                }
             }
         }
     }
@@ -119,9 +136,9 @@ form {
        grid-template-columns: 1fr;
        grid-template-rows: 1fr 1fr;
        .keyset { 
-           grid-column: 1 / -1;
-           align-self: center;
-           &-p1 {
+            grid-column: 1 / -1;
+            align-self: center;
+            &-p1 {
                grid-row: 1 / span 1;
             }
             &-p2 {
@@ -143,6 +160,7 @@ main {
 
 
 .side {
+    padding: 15px 30px;
     grid-row: 1 / -1;
     display: grid;
     figure {

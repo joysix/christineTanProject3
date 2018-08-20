@@ -157,6 +157,10 @@ h2 {
   @media (max-width: 950px) {
     h2 {
       font-size: 4rem; } }
+  @media (max-width: 585px) {
+    h2 {
+      font-size: 3rem;
+      letter-spacing: 0; } }
 
 h3 {
   font-family: "Gaegu", cursive;
@@ -171,7 +175,8 @@ h6 {
   font-size: 1.6rem;
   font-weight: 500;
   letter-spacing: 0.1rem;
-  text-transform: uppercase; }
+  text-transform: uppercase;
+  text-align: right; }
 
 p {
   margin: 0; }
@@ -206,10 +211,10 @@ footer button {
   color: #333; }
 
 @media (max-width: 585px) {
-  .name {
-    font-size: 5rem; }
+  .name, .score {
+    font-size: 3.6rem; }
   .keyset .name {
-    font-size: 4rem; }
+    font-size: 3.6rem; }
   h2 {
     letter-spacing: 0.4rem; }
   h6 {
@@ -251,9 +256,6 @@ body {
   grid-template-rows: 1fr auto auto;
   background-color: #ebebd3;
   overflow: hidden; }
-
-div {
-  padding: 15px 30px; }
 
 button {
   border: none;
@@ -309,9 +311,14 @@ form {
   border-radius: 20px;
   z-index: 89; }
   .winner-game {
-    margin: 20px;
     justify-self: stretch;
     border-radius: 0px; }
+    .winner-game button {
+      padding: 0px 20px; }
+      .winner-game button.same-players:hover {
+        background-color: dodgerblue; }
+      .winner-game button.new-players:hover {
+        background-color: darkorange; }
 
 .keys {
   display: grid;
@@ -341,6 +348,15 @@ form {
       -webkit-box-pack: center;
       -ms-flex-pack: center;
       justify-content: center; }
+      @media (max-width: 450px) {
+        .keys .keyset .pairs {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr); } }
+      .keys .keyset .pairs * {
+        padding: 15px 30px; }
+        @media (max-width: 450px) {
+          .keys .keyset .pairs * {
+            padding: 0; } }
     .keys .keyset .pair {
       display: grid;
       -webkit-box-pack: center;
@@ -359,7 +375,8 @@ form {
         border-radius: 8px; }
         @media (max-width: 450px) {
           .keys .keyset .pair .key {
-            padding: 5px 12px; } }
+            padding: 1px 8px;
+            border: 0.5px solid #333; } }
   @media (max-width: 650px) {
     .keys {
       grid-template-columns: 1fr;
@@ -384,6 +401,7 @@ main {
   background: linear-gradient(-75deg, darkorange 50%, dodgerblue 50%); }
 
 .side {
+  padding: 15px 30px;
   grid-row: 1 / -1;
   display: grid; }
   .side figure {
@@ -464,3 +482,42 @@ main {
 
 .hide {
   display: none; }
+
+.mobile {
+  grid-column: 1 / -1;
+  grid-row: 1 / -1;
+  display: grid;
+  padding: 10px;
+  grid-template-columns: 1fr 1fr;
+  background: -webkit-linear-gradient(165deg, darkorange 50%, dodgerblue 50%);
+  background: -o-linear-gradient(165deg, darkorange 50%, dodgerblue 50%);
+  background: linear-gradient(-75deg, darkorange 50%, dodgerblue 50%); }
+  .mobile .landscape {
+    grid-column: 1 / -1;
+    grid-row: 1 / -1;
+    display: grid;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -ms-flex-line-pack: center;
+    align-content: center;
+    text-align: center;
+    font-family: "Gaegu", cursive;
+    font-size: 4rem; }
+  .mobile .side {
+    grid-row: 1 / -1; }
+    .mobile .side.p1 {
+      grid-column: 1 / span 1;
+      display: grid; }
+      .mobile .side.p1 > .name-p1 {
+        justify-self: start;
+        -ms-flex-item-align: end;
+        align-self: end; }
+    .mobile .side.p2 {
+      grid-column: span 1 / -1;
+      display: grid; }
+      .mobile .side.p2 > .name-p2 {
+        justify-self: end;
+        -ms-flex-item-align: start;
+        align-self: start;
+        text-align: right; }

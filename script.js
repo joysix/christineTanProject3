@@ -32,26 +32,67 @@ const paper = `<img class="paper svg" src="assets/paper.svg">`
 const scissors = `<img class="scissors svg" src="assets/scissors.svg">`
 
 
-app.endGame = () => {
-
+// resets full page
+app.resetPage = () => {
+    $('.name').text('');
+    $('.score').text('');
+    $('.counts').remove();
+    $('.control-toggle').css('left', '100%');
+    app.updateBg();
 };
 
-// resets keys, deletes hand from page, then begins next round
-app.reset = () => {
-    $('body').on('keydown', function(e) {
-        if(e.which === 13) {
-            $('.winner').remove();
-            p1.hand = null;
-            p2.hand = null;
-            $('figure').empty();
+// resets score and count only
+app.resetScore = () => {
+    game.rounds.count = 1;
+    p1.score = 0;
+    p2.score = 0;
+    console.log(game);
+    console.log('resetScore');
+    $('.score').text('0');
+    $('.count-rounds').text(game.rounds.count);
+};
 
+// nulls hands, removes svgs, removes winner announcement
+app.resetHands = () => {
+    $('.winner').remove();
+    p1.hand = null;
+    p2.hand = null;
+    $('figure').empty();
+};
+
+// resets keys, removes svgs from page, then begins next round upon enter
+app.reset = () => {
+    $('body').on('keydown', function(e){
+        if(e.which === 13) {
+            app.resetHands();
             app.ready();
         }
     });
 };
 
+// prompts new game
+app.endGame = () => {
+    $('body').off('keydown');
+
+    $('.same-players').on('click', function(){
+        app.resetScore();
+        app.resetHands();
+        app.ready();
+        // console.log(game)
+    });
+    
+    $('.new-players').on('click', function(){
+        app.resetScore();
+        app.resetHands();
+        app.resetPage();
+        $('.setup').css('display', 'grid');
+        console.log(game)
+    });
+
+};
+
 // updates background to reflect score
-app.updateBg = (num) => {
+app.updateBg = (num = 50) => {
     $('main').css('background', `linear-gradient(-75deg, darkorange ${num}%, dodgerblue ${num}%)`)
   
     app.reset();
@@ -75,8 +116,10 @@ app.announceRoundWin = (player) => {
 
 // announces game winner
 app.announceGameWinner = (player) => {
-    const winner = `<div class="winner winner-game"><p><h3>${player.name} wins it all!</h3> Play again?</p></div>`
+    const winner = `<div class="winner winner-game"><h3>${player.name} wins it all!</h3> <p>Play again? <button class="new-game same-players">Same players</button> or <button class="new-game new-players">New players</button></p></div>`
     $('main').append(winner);
+
+    app.endGame();
 };
 
 // checks for game winner
@@ -87,7 +130,7 @@ app.checkGameWinner = (player) => {
     }
 };
 
-// updates score
+// updates counts
 app.updateStats = (player, score) => {
     game.rounds.count++;
     player.score++;
@@ -178,14 +221,14 @@ app.printStats = () => {
     $('.name-p2').text(p2.name);
     $('.score-p2').text(p2.score);
 
-    const rounds = `<p class="counts">Best of <span class="count count-best-of">${game.rounds.bestOf}</span> | Round <span class="count count-rounds">${game.rounds.count}</span></p>`;
+    const counts = `<p class="counts">Best of <span class="count count-best-of">${game.rounds.bestOf}</span> | Round <span class="count count-rounds">${game.rounds.count}</span></p>`;
 
-    $('main').prepend(rounds);
+    $('main').prepend(counts);
 };
 
 // shows controls, disables keydown when open
 app.showKeys = () => {
-    $('.control-toggle').on('click', function() {
+    $('.control-toggle').on('click', function(){
         $('.keys').toggleClass('hide');
         $('.control').toggleClass('show hidden');
         if($('.keys').hasClass('hide')) {
@@ -224,14 +267,101 @@ app.setup = () => {
 
 // allows toggle to hide footer 
 app.hideFooter = () => {
-    $('.tuck').on('click', function() {
+    $('.tuck').on('click', function(){
         $('h2').toggleClass('hide');
         $('h6').toggleClass('hide');
         $('img').toggleClass('down');
     });
 };
 
+//////////// MOBILE ////
+
+let grade = 50;
+
+app.overlayWin = (player) => {
+    alert(`${player} wins!`)
+}
+
+app.tapWin = () => {
+    if(grade >= 100){
+        app.overlayWin(p2.name);
+    } 
+    else if(grade <= 0){
+        app.overlayWin(p1.name);
+    }
+}
+
+app.updateMobileBg = () => {
+    $('.mobile').css('background', `linear-gradient(-75deg, darkorange ${grade}%, dodgerblue ${grade}%)`);
+    app.tapWin();
+}
+
+app.tapP2 = () => {
+    $('.p2').on('click', function(){
+        grade += 5;
+        app.updateMobileBg();
+    });
+};
+
+app.tapP1 = () => {
+    $('.p1').on('click', function(){
+        grade -= 5;
+        app.updateMobileBg();
+    });
+};
+
+app.addSides = () => {
+    const player1 = `<div class="side p1"><p class="name name-p1">${p1.name}</p></div>`;
+    const player2 = `<div class="side p2"><p class="name name-p2">${p2.name}</p></div>`
+    $('.mobile').append(player1);
+    $('.mobile').append(player2);
+
+    app.tapP1();
+    app.tapP2();
+};
+
+app.reorientation = () => {
+    window.addEventListener('resize', function(e){
+        if(window.innerHeight > window.innerWidth){
+            app.landscapePlease();
+        }
+        else{
+            $('.landscape').remove();
+        }
+    });
+};
+
+app.landscapePlease = () => {
+    const landscape = `<p class="landscape">Please switch to landscape mode!</p>`;
+    $('.mobile').append(landscape);
+}
+
+app.isMobile = {
+    Android: function () {
+        return navigator.userAgent.match(/Android/i);
+    },
+    iOS: function () {
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    }
+};
+
+app.keyless = () => {
+    if(app.isMobile.Android() || app.isMobile.iOS()){
+        $('body').empty();
+        const mobileContainer = `<div class="mobile"></div>`;
+        $('body').append(mobileContainer);
+        if (window.innerHeight > window.innerWidth) {
+            app.landscapePlease();
+        }
+        app.reorientation();
+        app.addSides();
+    }
+}
+
+
 $(function(){
     app.setup();
     app.hideFooter();
+
+    app.keyless();
 });
