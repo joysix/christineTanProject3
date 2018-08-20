@@ -37,8 +37,7 @@ app.resetPage = () => {
     $('.name').text('');
     $('.score').text('');
     $('.counts').remove();
-    $('.control-toggle').css('left', '100%');
-    app.updateBg();
+    $('.control-toggle').off('click').css('left', '100%');
 };
 
 // resets score and count only
@@ -46,10 +45,9 @@ app.resetScore = () => {
     game.rounds.count = 1;
     p1.score = 0;
     p2.score = 0;
-    console.log(game);
-    console.log('resetScore');
     $('.score').text('0');
     $('.count-rounds').text(game.rounds.count);
+    app.updateBg();
 };
 
 // nulls hands, removes svgs, removes winner announcement
@@ -72,13 +70,13 @@ app.reset = () => {
 
 // prompts new game
 app.endGame = () => {
-    $('body').off('keydown');
+
+    $('body').off();
 
     $('.same-players').on('click', function(){
         app.resetScore();
         app.resetHands();
         app.ready();
-        // console.log(game)
     });
     
     $('.new-players').on('click', function(){
@@ -86,7 +84,14 @@ app.endGame = () => {
         app.resetHands();
         app.resetPage();
         $('.setup').css('display', 'grid');
-        console.log(game)
+    });
+    
+    $('body').on('keydown', function (e) {
+        if (e.which === 13) {
+            app.resetScore();
+            app.resetHands();
+            app.ready();
+        }
     });
 
 };
@@ -164,6 +169,7 @@ app.checkRound = () => {
     else {
         app.compareHands(p1, p2, '.score-p1');
         app.compareHands(p2, p1, '.score-p2');
+        
     }
 
     app.calcRatio();
@@ -204,6 +210,7 @@ app.play = (player, key) => {
 
 // begins round
 app.ready = () => {
+    $('body').off();
     $('.count-rounds').text(game.rounds.count);
     $('body').on('keydown', function(key){
         app.play(p1, key.which);
@@ -229,6 +236,7 @@ app.printStats = () => {
 // shows controls, disables keydown when open
 app.showKeys = () => {
     $('.control-toggle').on('click', function(){
+        $('body').off();
         $('.keys').toggleClass('hide');
         $('.control').toggleClass('show hidden');
         if($('.keys').hasClass('hide')) {
@@ -274,7 +282,7 @@ app.hideFooter = () => {
     });
 };
 
-//////////// MOBILE ////
+//////////// START OF MOBILE ////////////
 
 let grade = 50;
 
@@ -357,6 +365,8 @@ app.keyless = () => {
         app.addSides();
     }
 }
+
+/////////// END OF MOBILE ////////////
 
 
 $(function(){

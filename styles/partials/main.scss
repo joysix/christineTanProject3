@@ -55,6 +55,7 @@ form {
 
 // winner announcement
 .winner {
+    padding: 15px 30px;
     @include box-fill(grid);
     padding-bottom: 30px;
     justify-self: center;
@@ -75,6 +76,10 @@ form {
                 background-color: darkorange;
             }
         }
+    }
+    @media (max-width: 650px) {
+        align-self: end;
+        margin-bottom: 20%;
     }
 }
 

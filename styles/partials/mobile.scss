@@ -13,9 +13,9 @@
     }
     .side {
         grid-row: 1 / -1;
+        display: grid;
         &.p1 {
             grid-column: 1 / span 1;
-            display: grid;
             & > .name-p1 {
                 justify-self: start;
                 align-self: end;
@@ -23,7 +23,6 @@
         }
         &.p2 {
             grid-column: span 1 / -1;
-            display: grid;
             & > .name-p2 {
                 justify-self: end;
                 align-self: start;

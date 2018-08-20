@@ -139,6 +139,9 @@ body {
   font-family: "Roboto Mono", monospace;
   font-size: 1.6rem;
   color: white; }
+  @media (max-width: 585px) {
+    body {
+      font-size: 1.4rem; } }
 
 h2, h3, h4, h6 {
   margin: 0;
@@ -165,6 +168,9 @@ h2 {
 h3 {
   font-family: "Gaegu", cursive;
   font-size: 6rem; }
+  @media (max-width: 585px) {
+    h3 {
+      font-size: 4rem; } }
 
 h4 {
   font-family: "Gaegu", cursive;
@@ -300,6 +306,7 @@ form {
       background-color: darkorange; }
 
 .winner {
+  padding: 15px 30px;
   grid-column: 1 / -1;
   grid-row: 1 / -1;
   display: grid;
@@ -319,6 +326,11 @@ form {
         background-color: dodgerblue; }
       .winner-game button.new-players:hover {
         background-color: darkorange; }
+  @media (max-width: 650px) {
+    .winner {
+      -ms-flex-item-align: end;
+      align-self: end;
+      margin-bottom: 20%; } }
 
 .keys {
   display: grid;
@@ -505,17 +517,16 @@ main {
     font-family: "Gaegu", cursive;
     font-size: 4rem; }
   .mobile .side {
-    grid-row: 1 / -1; }
+    grid-row: 1 / -1;
+    display: grid; }
     .mobile .side.p1 {
-      grid-column: 1 / span 1;
-      display: grid; }
+      grid-column: 1 / span 1; }
       .mobile .side.p1 > .name-p1 {
         justify-self: start;
         -ms-flex-item-align: end;
         align-self: end; }
     .mobile .side.p2 {
-      grid-column: span 1 / -1;
-      display: grid; }
+      grid-column: span 1 / -1; }
       .mobile .side.p2 > .name-p2 {
         justify-self: end;
         -ms-flex-item-align: start;
