@@ -5,9 +5,9 @@ body {
     font-family: $monospace;
     font-size: 1.6rem;
     color: white;
-    @media (max-width: 585px) {
-        font-size: 1.4rem;
-    }
+    // @media (max-width: 585px) {
+    //     font-size: 1.4rem;
+    // }
 }
 h2, h3, h4, h6 {
     margin: 0;
@@ -23,12 +23,12 @@ h2 {
         font-size: 6rem;
         letter-spacing: 1rem;
     }
-    @media(max-width: 950px) {
+    @media(max-width: 750px) {
         font-size: 4rem;
     }
     @media (max-width: 585px) {
-        font-size: 3rem;
-        letter-spacing: 0;
+        font-size: 4rem;
+        letter-spacing: 0.4rem;
     }
 }
 h3 {
@@ -49,6 +49,9 @@ h6 {
     letter-spacing: 0.1rem;
     text-transform: uppercase;
     text-align: right;
+    @media (max-width: 585px) {
+        font-size: 1.2rem;
+    }
 }
 p {
     margin: 0;
@@ -87,7 +90,7 @@ footer {
     color: #333;
 }
 
-@media (max-width: 585px) {
+@media (max-width: 450px) {
     .name, .score {
         font-size: 3.6rem;
     }
@@ -96,10 +99,4 @@ footer {
             font-size: 3.6rem;
         }
     }
-    h2 {
-        letter-spacing: 0.4rem;
-    }
-    h6 {
-        letter-spacing: 0rem;
-    }   
 }

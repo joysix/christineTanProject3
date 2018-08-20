@@ -169,7 +169,6 @@ app.checkRound = () => {
     else {
         app.compareHands(p1, p2, '.score-p1');
         app.compareHands(p2, p1, '.score-p2');
-        
     }
 
     app.calcRatio();

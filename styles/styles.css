@@ -139,9 +139,6 @@ body {
   font-family: "Roboto Mono", monospace;
   font-size: 1.6rem;
   color: white; }
-  @media (max-width: 585px) {
-    body {
-      font-size: 1.4rem; } }
 
 h2, h3, h4, h6 {
   margin: 0;
@@ -157,13 +154,13 @@ h2 {
     h2 {
       font-size: 6rem;
       letter-spacing: 1rem; } }
-  @media (max-width: 950px) {
+  @media (max-width: 750px) {
     h2 {
       font-size: 4rem; } }
   @media (max-width: 585px) {
     h2 {
-      font-size: 3rem;
-      letter-spacing: 0; } }
+      font-size: 4rem;
+      letter-spacing: 0.4rem; } }
 
 h3 {
   font-family: "Gaegu", cursive;
@@ -183,6 +180,9 @@ h6 {
   letter-spacing: 0.1rem;
   text-transform: uppercase;
   text-align: right; }
+  @media (max-width: 585px) {
+    h6 {
+      font-size: 1.2rem; } }
 
 p {
   margin: 0; }
@@ -216,15 +216,11 @@ footer button {
 .overlay, .counts, .winner, footer {
   color: #333; }
 
-@media (max-width: 585px) {
+@media (max-width: 450px) {
   .name, .score {
     font-size: 3.6rem; }
   .keyset .name {
-    font-size: 3.6rem; }
-  h2 {
-    letter-spacing: 0.4rem; }
-  h6 {
-    letter-spacing: 0rem; } }
+    font-size: 3.6rem; } }
 
 footer {
   grid-column: 1 / -1;
@@ -366,9 +362,9 @@ form {
           grid-template-columns: repeat(3, 1fr); } }
       .keys .keyset .pairs * {
         padding: 15px 30px; }
-        @media (max-width: 450px) {
+        @media (max-width: 585px) {
           .keys .keyset .pairs * {
-            padding: 0; } }
+            padding: 5px 10px; } }
     .keys .keyset .pair {
       display: grid;
       -webkit-box-pack: center;
@@ -389,7 +385,7 @@ form {
           .keys .keyset .pair .key {
             padding: 1px 8px;
             border: 0.5px solid #333; } }
-  @media (max-width: 650px) {
+  @media (max-width: 1150px) {
     .keys {
       grid-template-columns: 1fr;
       grid-template-rows: 1fr 1fr; }
