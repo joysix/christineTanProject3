@@ -2,25 +2,11 @@
 // Z 90     // X 88    // C 67
 // I 73     // O 79    // P 80
 
-
-// Players enter names and agree on number of rounds
-// Hit enter to begin
-// Each player chooses R, P, or S
-    // Listen for keydown
-    // save choice in two variables
-// Ensure both players played hands
-        //// Print choices to page
-// Compare hands and declare winner of round
-// Compare leading score to games to win
-// Update score and update background accordingly
-    // Everytime the score is tied, subtract from games to win and reset score
-
-
 const game = {
     rounds: {
         bestOf: null,
         toWin: null,
-        count: 0
+        count: 1
     },
     p1: {
         name: 'Player 1',
@@ -36,22 +22,24 @@ const game = {
     }
 }
 
+const app = {}
+
 const p1 = game.p1;
 const p2 = game.p2;
 
-
 const rock = `<img class="rock svg" src="assets/rock.svg">`
-
 const paper = `<img class="paper svg" src="assets/paper.svg">`
-
 const scissors = `<img class="scissors svg" src="assets/scissors.svg">`
 
-const app = {}
 
+app.endGame = () => {
+
+};
+
+// resets keys, deletes hand from page, then begins next round
 app.reset = () => {
-
-    $("body").on('keydown', (e) => {
-        if (e.which === 13) {
+    $('body').on('keydown', function(e) {
+        if(e.which === 13) {
             $('.winner').remove();
             p1.hand = null;
             p2.hand = null;
@@ -59,92 +47,106 @@ app.reset = () => {
 
             app.ready();
         }
-    })
-}
+    });
+};
 
-app.announceWinner = (player) => {
-    const winner = `<h3>${player.name} wins!</h3>`;
-    const winnerDiv = $('<div class="winner">').html(`<p>${winner} (Hit enter.)</p>`);
-    $('main').append(winnerDiv);
-}
-
+// updates background to reflect score
 app.updateBg = (num) => {
     $('main').css('background', `linear-gradient(-75deg, darkorange ${num}%, dodgerblue ${num}%)`)
-}
+  
+    app.reset();
+};
 
+// calculates point difference ratio, updates background accordingly
 app.calcRatio = () => {
     const diff = p1.score - p2.score;
     const gamesPlayed = p1.score + p2.score;
     const ratio = diff / (gamesPlayed - (game.rounds.bestOf + 1));
     const adjust = (ratio * 50) + 50;
-    console.log('ratio:' + ratio);
-    console.log('adjustment:' + adjust);
-    console.log('p1:' + p1.score, 'p2:' + p2.score);
+
     app.updateBg(adjust);
-
-}
-
-app.updateScore = () => {
-    
-    if(p1.hand === p2.hand){
-        console.log('no one wins');
-        const tie = `<h3>Tie!</h3>`;
-        const tieDiv = $('<div class="winner">').html(`<p>${tie} (Hit enter.)</p>`);
-        $('main').append(tieDiv);
-    }
-    
-    else if(
-        (p1.hand === rock && p2.hand === scissors) ||
-        (p1.hand === paper && p2.hand === rock) ||
-        (p1.hand === scissors && p2.hand === paper) ){
-            game.rounds.count++;
-            p1.score++
-            $('.p1-score').text(p1.score);
-            app.announceWinner(p1);
-            
-        } 
-        
-    else if(
-        (p1.hand === rock && p2.hand === paper) ||
-        (p1.hand === paper && p2.hand === scissors) ||
-        (p1.hand === scissors && p2.hand === rock) ){
-            game.rounds.count++;
-            p2.score++
-            $('.p2-score').text(p2.score);
-            app.announceWinner(p2);
-    }
-    
-    app.calcRatio()
-    app.reset();
-    
-}
-
-app.checkGameWinner = () => {
-    
-    if (p1.score === Math.ceil(game.rounds / 2) || p2.score === Math.ceil(game.rounds / 2)) {
-        console.log("game over!");
-    }
-    app.updateScore();
-    
 };
 
-app.printHands = () => {
-    $(".p1-hand").append(p1.hand);
-    $(".p2-hand").append(p2.hand);
-    app.checkGameWinner();
-}
+// announces round winner
+app.announceRoundWin = (player) => {
+    const win = `<div class="winner"><p><h3>${player.name} wins!</h3> Hit enter for next round.</p></div>`
+    $('main').append(win);
+};
 
-app.keysOff = () => {
-    if(p1.hand !== null && p2.hand !== null){
-        $("body").off("keydown");
-        // console.log(p1.hand + " vs " + p2.hand);
-        $('figure').empty();
-        app.printHands();
+// announces game winner
+app.announceGameWinner = (player) => {
+    const winner = `<div class="winner winner-game"><p><h3>${player.name} wins it all!</h3> Play again?</p></div>`
+    $('main').append(winner);
+};
+
+// checks for game winner
+app.checkGameWinner = (player) => {
+    if(player.score === game.rounds.toWin) {
+        app.announceGameWinner(player);
+        return true;
     }
-}
+};
 
+// updates score
+app.updateStats = (player, score) => {
+    game.rounds.count++;
+    player.score++;
+    $(score).text(player.score);
+};
+
+
+// compares hands
+app.compareHands = (winner, loser, score) => {
+    if(
+        (winner.hand === rock && loser.hand === scissors) ||
+        (winner.hand === paper && loser.hand === rock) ||
+        (winner.hand === scissors && loser.hand === paper)) {
+            // updates score first
+        app.updateStats(winner, score);
+            // checks game win
+        const win = app.checkGameWinner(winner);
+            // if no game win, check round win
+        if(!win) {
+            app.announceRoundWin(winner);
+        }
+    }
+};
+
+// checks results, then calculates ratio of difference in score
+app.checkRound = () => {
+    if(p1.hand === p2.hand) {
+        const tie = `<div class="winner"><p><h3>Tie. No one wins!</h3> Hit enter for next round.</p></div>`
+        $('main').append(tie);
+    }
+    else {
+        app.compareHands(p1, p2, '.score-p1');
+        app.compareHands(p2, p1, '.score-p2');
+    }
+
+    app.calcRatio();
+};
+
+// prints results, then checks results
+app.printHands = () => {
+    $('.hand-p1').append(p1.hand);
+    $('.hand-p2').append(p2.hand);
+
+    app.checkRound();
+};
+
+// ensures both players have played, then prints results on page
+app.keysOff = () => {
+    if(p1.hand && p2.hand){
+        $('body').off('keydown');
+        $('figure').empty();
+
+        app.printHands();
+    };
+};
+
+// saves choice based on keydown
 app.play = (player, key) => {
-    if(player.hand === null){
+    if(!player.hand){
         if(key === player.keys[0]){
             player.hand = rock;
         }
@@ -154,66 +156,80 @@ app.play = (player, key) => {
         else if(key === player.keys[2]){
             player.hand = scissors;
         }
-    }
-    // if(player.hand) {
-    //     console.log(player.hand);
-    // }
-}
+    };
+};
 
+// begins round
 app.ready = () => {
-
-    $("body").on('keydown', function(key){
+    $('.count-rounds').text(game.rounds.count);
+    $('body').on('keydown', function(key){
         app.play(p1, key.which);
         app.play(p2, key.which);
 
         app.keysOff();
-    })
-}
+    });
+};
 
-app.closeKeys = () => {
-    $('body').on('keydown', function (e) {
-        if (e.which === 13) {
-            $('.keys').css('display', 'none');
+// prints details (name, score, rounds) on page
+app.printStats = () => {
+    $('.name-p1').text(p1.name);
+    $('.score-p1').text(p1.score);
+
+    $('.name-p2').text(p2.name);
+    $('.score-p2').text(p2.score);
+
+    const rounds = `<p class="counts">Best of <span class="count count-best-of">${game.rounds.bestOf}</span> | Round <span class="count count-rounds">${game.rounds.count}</span></p>`;
+
+    $('main').prepend(rounds);
+};
+
+// shows controls, disables keydown when open
+app.showKeys = () => {
+    $('.control-toggle').on('click', function() {
+        $('.keys').toggleClass('hide');
+        $('.control').toggleClass('show hidden');
+        if($('.keys').hasClass('hide')) {
+            app.ready();
         }
-    })
+    });
+    
+    app.printStats();  
+};
 
-    $('.close').on('click', function(){
-        $('.keys').css('display', 'none');
-    })
-    app.ready();
-}
-
+// saves form inputs, hides form, then shows controls
 app.setup = () => {
     $('form').on('submit', function(e){
         e.preventDefault();
-        p1.name = $('input[name=p1-name]').val();
+
+        p1.name = $('input[name=name-p1]').val();
         if(!p1.name.length){
-            p1.name = "Jack Traven";
+            p1.name = 'Jack Traven';
         }
-        $('.p1-name').text(p1.name);
-        $('.p1-score').text(p1.score);
-        p2.name = $('input[name=p2-name]').val();
-        if (!p2.name.length) {
-            p2.name = "Richard Kimble";
+  
+        p2.name = $('input[name=name-p2]').val();
+        if(!p2.name.length) {
+            p2.name = 'Richard Kimble';
         }
-        $('.p2-name').text(p2.name);
-        $('.p2-score').text(p2.score);
+        
         game.rounds.bestOf = Number($('select').val());
         game.rounds.toWin = Math.ceil(game.rounds.bestOf / 2);
+        
         $('.setup').css('display', 'none');        
-        $('.keys').css('display', 'grid');
-    })
+        $('.keys').toggleClass('hide');
+        $('.control-toggle').css('left', '0');
+        
+        app.showKeys();
+    });
+};
 
-    app.closeKeys();
-}
-
+// allows toggle to hide footer 
 app.hideFooter = () => {
-    $('.tuck').on('click', function () {
+    $('.tuck').on('click', function() {
         $('h2').toggleClass('hide');
         $('h6').toggleClass('hide');
         $('img').toggleClass('down');
-    })
-}
+    });
+};
 
 $(function(){
     app.setup();

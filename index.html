@@ -15,10 +15,11 @@
     <main>
         <div class="overlay setup">
             <form method="GET">
-                <label for="p1-name">Player 1</label>
-                <input type="text" name="p1-name" id="p1-name" placeholder="name">
-                <label for="p2-name">Player 2</label>
-                <input type="text" name="p2-name" id="p2-name" placeholder="name">
+                <h4>Game details</h4>
+                <label for="name-p1">Player 1</label>
+                <input type="text" name="name-p1" id="name-p1" placeholder="name">
+                <label for="name-p2">Player 2</label>
+                <input type="text" name="name-p2" id="name-p2" placeholder="name">
                 <label for="rounds">Number of rounds</label>
                 <select id="rounds">
                     <option value="3">3</option>
@@ -27,13 +28,13 @@
                     <option value="9">9</option>
                     <option value="11">11</option>
                 </select>
-                <button>Play</button>
+                <button>Play!</button>
             </form>
         </div>
 
-        <div class="overlay keys">
+        <div class="overlay keys hide">
             <div class="keyset keyset-p1">
-                <span class="name p1-name">Player 1</span>
+                <span class="name name-p1"></span>
                 <div class="pairs">
                     <div class="pair"><p>Rock <span class="key">Z</span></p></div>
                     <div class="pair"><p>Paper <span class="key">X</span></p></div>
@@ -42,27 +43,25 @@
             </div>
 
             <div class="keyset keyset-p2">
-                    <span class="name p2-name">Player 2</span>
+                    <span class="name name-p2"></span>
                     <div class="pairs">
                         <div class="pair"><p>Rock <span class="key">I</span></p></div>
                         <div class="pair"><p>Paper <span class="key">O</span></p></div>
                         <div class="pair"><p>Scissors <span class="key">P</span></p></div>
                     </div>
-                </p>
             </div>
-
-            <button class="close">Close</button>
         </div>
 
+        <div class="side side-p1">
+            <figure class="hand hand-p1"></figure>
+            <p class="details details-p1"><span class="name name-p1"></span><span class="score score-p1"></span></p>
+        </div>
+        <div class="side side-p2">
+            <figure class="hand hand-p2"></figure>
+            <p class="details details-p2"><span class="name name-p2"></span><span class="score score-p2"></span></p>
+        </div>
 
-        <div class="p1">
-            <figure class="p1-hand"></figure>
-            <p class="details p1-details"><span class="name p1-name"></span><span class="score p1-score"></span></p>
-        </div>
-        <div class="p2">
-            <figure class="p2-hand"></figure>
-            <p class="details p2-details"><span class="name p2-name"></span><span class="score p2-score"></span></p>
-        </div>
+        <button class="control control-toggle show">Keys</button>
     </main>
 
     <footer>

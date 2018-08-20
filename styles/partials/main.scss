@@ -15,6 +15,11 @@ div {
     padding: 15px 30px;
 }
 
+button {
+    border: none;
+    outline: none;
+}
+
 .overlay {
     margin: 20px;
     @include box-fill(grid);
@@ -23,20 +28,58 @@ div {
     background-color: $opaque;
     z-index: 99;
 }
+
+// initial form
+form {
+    display: flex;
+    flex-flow: column;
+    flex: 0 0 content;
+    h4 {
+        padding-bottom: 10px;
+        border-bottom: 0.5px solid #333;
+    }
+    & > * {
+        border: none;
+    }
+    input {
+        background-color: #fff;
+    }
+    label, button {
+        margin-top: 20px;
+    }
+    button {
+        background-color: $p1color;
+        &:hover {
+            background-color: $p2color;
+        }
+    }
+    
+}
+
+// winner announcement
 .winner {
     @include box-fill(grid);
+    padding-bottom: 30px;
     justify-self: center;
     align-self: center;
     text-align: center;
     background-color: $opaque;
     border-radius: 20px;
     z-index: 89;
+    &-game {
+        margin: 20px;
+        justify-self: stretch;
+        border-radius: 0px;
+    }
 }
 
 .keys {
-    display: none;
+    display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
+    &.hide {
+        display: none;
+    }
     .keyset { 
         grid-row: 1 / span 1;
         align-self: center;
@@ -46,35 +89,40 @@ div {
         &-p2 {
             grid-column: span 1 / -1;
         }
+        .name {
+            text-align: center;
+        }
         & .pairs {
         width: available;
         display: flex;
         flex-flow: row wrap;
         justify-content: center;
         }
-        .name {
+        .pair {
+            display: grid;
+            justify-content: center;
+            align-content: center;
             text-align: center;
-        }
-    }
-    .close {
-        @include box-fill(block);
-        justify-self: end;
-        align-self: start;
-        padding: 5px 20px;
-        background: none;
-        border: none;
-        &:hover {
-            background-color: $p1color;
+            .key {
+                margin: auto;
+                width: max-content;
+                padding: 10px 20px;
+                @media (max-width: 450px) {
+                    padding: 5px 12px;
+                }
+                border: 2px solid #333;
+                border-radius: 8px;
+            }
         }
     }
     @media (max-width: 650px) {
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr 1fr;
-        .keyset { 
-            grid-column: 1 / -1;
-            align-self: center;
-            &-p1 {
-                grid-row: 1 / span 1;
+       grid-template-columns: 1fr;
+       grid-template-rows: 1fr 1fr;
+       .keyset { 
+           grid-column: 1 / -1;
+           align-self: center;
+           &-p1 {
+               grid-row: 1 / span 1;
             }
             &-p2 {
                 grid-row: span 1 / -1;
@@ -82,24 +130,7 @@ div {
         }
     }
 }
-
-.key {
-    margin: auto;
-    width: max-content;
-    padding: 10px 20px;
-    @media (max-width: 450px) {
-        padding: 5px 12px;
-    }
-    border: 2px solid #333;
-    border-radius: 8px;
-}
-.pair {
-    width: max-content;
-    display: grid;
-    justify-content: center;
-    align-content: center;
-    text-align: center;
-}
+    
 
 main {
     grid-column: 1 / -1;
@@ -110,69 +141,74 @@ main {
     background: linear-gradient(-75deg, $p2color 50%, $p1color 50%);
 }
 
-form {
-    display: flex;
-    flex-flow: column;
-    flex: 0 0 content;
-    & > * {
-        border: none;
-    }
-    input {
-        background-color: #fff;
-    }
-    label, button {
-        margin-top: 20px;
-    }
-    button:hover {
-        background-color: $p2color;
-    }
-    
-}
 
-.p1 {
-    grid-column: 1 / span 1;
-    grid-row: 1 / -1; 
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    &-hand {
-        @include box-fill(grid);
-        align-items: end;
-        & > .svg {
-            margin-bottom: 20%;
-        }
-    }
-    .details {
-        flex-flow: column-reverse wrap;
-    }
-}
-
-.p2 {
-    grid-column: span 1 / -1;
+.side {
     grid-row: 1 / -1;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto 1fr;
-    &-hand {
+    figure {
         @include box-fill(grid);
-        justify-items: end; 
-        & > .svg {
+    }
+    .details {
+        @include box-fill(flex);
+    }
+
+    &-p1 {
+        grid-column: 1 / span 1;
+        figure > .svg {
+            margin-bottom: 20%;
+        }
+        .details {
+            flex-flow: column-reverse wrap;
+        }
+    }
+    &-p2 {
+        grid-column: span 1 / -1;
+        figure > .svg {
             transform: scaleX(-1);
             margin-top: 20%;
         }
-    }
-    .details {
-        flex-flow: column wrap;
-        text-align: right;
+        .details {
+            flex-flow: column wrap;
+            text-align: right;
+        }
     }
 }
 
-.details {
-    @include box-fill(flex);
+.counts {
+    @include box-fill(block);
+    justify-self: start;
+    align-self: start;
+    margin: 0 20px 20px 20px;
+    padding: 5px 20px;
+    background-color: $bgcolor;
+    z-index: 999;
+}
+
+.control {
+    @include box-fill(block);
+    padding: 5px 20px;
+    &-toggle {
+        margin-right: 20px;
+        justify-self: end;
+        align-self: end;
+        position: relative;
+        left: 100%;
+        background: $bgcolor;
+        transition: left 0.6s;
+        z-index: 100;
+        &:hover {
+            background-color: $p1color;
+        }
+        &.hidden::before {
+            content: 'SHOW ';
+        }
+        &.show::before {
+            content: 'HIDE ';
+        }
+    }
 }
 
 
-// HANDS SVGS
 
 .svg {
     position: relative;
