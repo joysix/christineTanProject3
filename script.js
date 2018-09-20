@@ -290,10 +290,10 @@ app.overlayWin = (player) => {
 
 app.tapWin = () => {
     if(grade >= 100){
-        app.overlayWin(p2.name);
+        app.overlayWin('Orange');
     } 
     else if(grade <= 0){
-        app.overlayWin(p1.name);
+        app.overlayWin('Blue');
     }
 }
 
@@ -317,10 +317,12 @@ app.tapP1 = () => {
 };
 
 app.addSides = () => {
-    const player1 = `<div class="side p1"><p class="name name-p1">${p1.name}</p></div>`;
-    const player2 = `<div class="side p2"><p class="name name-p2">${p2.name}</p></div>`
-    $('.mobile').append(player1);
-    $('.mobile').append(player2);
+    // const player1 = `<div class="side p1"><p class="name name-p1">${p1.name}</p></div>`;
+    // const player2 = `<div class="side p2"><p class="name name-p2">${p2.name}</p></div>`
+    // $('.mobile').append(player1);
+    // $('.mobile').append(player2);
+
+    const tip = `<div><p>Hey! Go outside!</p></div>`
 
     app.tapP1();
     app.tapP2();
@@ -377,21 +379,3 @@ $(function(){
     app.keyless();
 });
 
-
-// ROCK     // PAPER   // SCISSORS
-// Z 90     // X 88    // C 67
-// I 73     // O 79    // P 80
-
-/////////
-// NTS //
-/////////
-
-////// Future considerations
-// Develop mobile game alternative to RPS (w/o use of keyboard)
-//// 2-player RPS on desktop is silly, 2-player RPS on mobile is even sillier
-// Proper landing/welcome page (use multi-hand svg)
-// Increased keyboard and click functionality (re Enter key!)
-// Series option
-// Computer opponent option
-// Key control customization
-// Colour customization
